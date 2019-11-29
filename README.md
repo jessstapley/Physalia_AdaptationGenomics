@@ -5,4 +5,4 @@ This is a respository of markdown documents for exercises for the Adaptation Gen
 
 Ich bin ein Berliner - well for a week least
 
-    ![alt text](https://github.com/jessstapley/Physalia_AdaptationGenomics/blob/master/AdaptationGenomicsLogo..png)
+![alt text](https://github.com/jessstapley/Physalia_AdaptationGenomics/blob/master/AdaptationGenomicsLogo..png)
