@@ -5,3 +5,4 @@ This is a respository of markdown documents for exercises for the Adaptation Gen
 
 Ich bin ein Berliner - well for week least
 
+![alt text](http://url/to/img.png)
