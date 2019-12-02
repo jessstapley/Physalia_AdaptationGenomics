@@ -1,24 +1,26 @@
 # Investigating Population Genetic Struture in R
 This exercise we invesitgte population genetic strcuture using two approaches - a distance based method (PCA) and a model based method (entropy criterion).
 
-First, create a new directory called PopGen. In that directory create two new subdirectories (data). Copy the data file to the data directory.
+First, create a new directory called PopGen. In that directory create one subdirectory (data). Copy the data file to the data directory.
 
-Open R studio, create a new porject using this existing directory that you just created (PopGen). In R open a new R Markdown file. Have a look at the default file format. You can add chuncks of code to the sections between "```"  "```". Youcan replace the code in all sections EXCEPT this bit - DO NOT EDIT
+Open R studio, create a new project using this existing directory that you just created (PopGen). In R open a new R Markdown file. Have a look at the default file format. You can add chuncks of code to the sections between "```"  "```". You can replace the code in all sections EXCEPT this bit - DO NOT EDIT this bit.
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
-Get familiar with this sytax and organisation.
+Get familiar with this sytax and organisation of the markdown documents. Save this document (PopGenStructure) to the directory PopGen and now you can edit this document by copying the information from this github tutporial.
 
-Now follow this tutorial - remember copy the code from here into the markdown document in a similar fashion. To run a chunk of code in the markdwon document press the small green arrow (
+Now follow this tutorial on github - copy the code from here into the markdown document in a similar fashion. To run a chunk of code in the markdwon document press the small green arrow.
 
-This package can read in multiple file formats, including vcf, plink ped, STRUCTURE. Here I provide an example code for vcf and lfmm file formats.
+# PCA analysis from vcf file
+Now the R project is set up lets begin.
+Read in your libraries.
 
 ```
 library(LEA)
 library(RColorBrewer)
 
 ```
-You will need to change the name of your input file and out_prefix in the code below. Firsdt we convert the vcf to geno and gds formats for this analysis
+You will need to change the name of your input.path  and out.path in the code below. First we convert the vcf to gds format for this PCA analysis
 ```
 input.path <-  "data/FILENAME.vcf"
 out.path <- "data/FILENAME.geno"
@@ -27,7 +29,6 @@ vcf2geno(input.file, output.file =out.path, force = TRUE)
 o.genofile <- snpgdsOpen(paste0(out.path,".gds"))
 ```
 Then we perform a PCA on the datasets. We make an object (i.e. o.pc.percent) which is the proportion of variance explained by the princple components. We use this later to label our PCA axis. We also create a dataframe with the first two PCs.
-
 
 ```
 o.pca<-snpgdsPCA(o.genofile,autosome.only=FALSE)
@@ -54,9 +55,7 @@ tw$pvalues[1:10]
 plot(tw$percentage, pch=19, typ="b") 
 
 ```
-Here we perform a pca and then we use the Tracy-Widom test for each eigenvalue to investigate the number of genetic clusters in the data. We display the p-values for the Tracy-Widom test for 1-10 eigenvalues. The 'knee' in the plot indicates the number of significant components (K) in the data. The number of genetic clusters is K+1.
-
-Q1. How many ancestral populations do you think there are in your data?
+Q1. How many populations do you think there are in your data?
 
 # Looking at population structure 
 
@@ -77,11 +76,9 @@ bestK <- ADD YOUR VALUE HERE
 ce <- cross.entropy(obj.snmf, K = bestK)
 best.run <- which.min(ce)
 
-qmatrix = Q(obj.snmf, K =4, run=best)
+qmatrix = Q(obj.snmf, K =bestK, run=best.run)
 barplot(t(as.matrix(qmatrix)), col=rainbow(bestK), xlab="Individual #", ylab="Ancestry", border=NA)
 ```
-To optimize this plot we need to sort the individuals into their populations. We skip this for now.
-
 NOTE: The snmf runs are automatically saved into an snmf project directory - have a look in your working directory. The name of the snmf project file is the same name as the name of the input file with a .snmfProject extension ("genotypes.snmfProject").
 An snmf project can be load in a different session.
 project = load.snmfProject("genotypes.snmfProject")
