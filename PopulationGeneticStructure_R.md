@@ -20,40 +20,21 @@ library(LEA)
 library(RColorBrewer)
 
 ```
-You will need to change the name of your input.path  and out.path in the code below. First we convert the vcf to gds format for this PCA analysis
+You will need to change the name of your input.path  and out.path in the code below. First we convert the vcf to geno format for this analysis
 ```
-input.path <-  "data/FILENAME.vcf"
-out.path <- "data/FILENAME.geno"
+input.path <-  "data/FILENAME
 
-vcf2geno(input.file, output.file =out.path, force = TRUE)
-o.genofile <- snpgdsOpen(paste0(out.path,".gds"))
-```
-Then we perform a PCA on the datasets. We make an object (i.e. o.pc.percent) which is the proportion of variance explained by the princple components. We use this later to label our PCA axis. We also create a dataframe with the first two PCs.
-
-```
-o.pca<-snpgdsPCA(o.genofile,autosome.only=FALSE)
-o.pc.percent <- o.pca$varprop*100
-o.Xlab<-paste(paste("PCA1 (", round(o.pc.percent, 2)[1], sep=""),"%)", sep="")
-o.Ylab<-paste(paste("PCA2 (", round(o.pc.percent, 2)[2], sep=""),"%)", sep="")
-
-data.o <-data.frame(pca1=o.pca$eigenvect[,1],pca2=o.pca$eigenvect[,2], sample=o.pca$sample.id)
-
-ggplot(o.db, aes(x=pca1, y=pca2))+
-  geom_point()+
-  xlab(o.Xlab)+
-  ylab(o.Ylab)
-  
-```
-Looking at the number of principle components that explain variation in the genomic data we can get an idea about the likely number of ancestral populations. This  can help us choose a range of K for the next anaysis step.
-
-Here we perform a pca and then we use the Tracy-Widom test for each eigenvalue to investigate the number of genetic clusters in the data. We display the p-values for the Tracy-Widom test for 1-10 eigenvalues. The 'knee' in the plot indicates the number of significant components (K) in the data. The number of genetic clusters is K+1.
-
-```
-pca1R <- pca(paste0(out.path,".geno"), scale =TRUE)
+vcf2geno(paste0(input.path,".vcf"),paste0(input.path,".geno"))
+pca1R <- pca(paste0(input.path,".geno"), scale =TRUE)
 tw <- tracy.widom(pca1R)
 tw$pvalues[1:10]
 plot(tw$percentage, pch=19, typ="b") 
 ```
+
+Looking at the number of principle components that explain variation in the genomic data we can get an idea about the likely number of ancestral populations. This  can help us choose a range of K for the next anaysis step.
+
+Here we perform a pca and then we use the Tracy-Widom test for each eigenvalue to investigate the number of genetic clusters in the data. We display the p-values for the Tracy-Widom test for 1-10 eigenvalues. The 'knee' in the plot indicates the number of significant components (K) in the data. The number of genetic clusters is K+1.
+
 
 Q1. How many populations do you think there are in your data?
 
@@ -62,7 +43,6 @@ Q1. How many populations do you think there are in your data?
 Next we will investigate the population structure more throughly. The ```snmf``` function estimates ancestry coefficients similar to the commonly used programs (STRUCTURE  and ADMIXTURE). First we convert the data again.
 
 ```
-vcf2geno(paste0(input.path,".vcf"), output.file =paste0(out.path,".geno"), force = TRUE)
 geno2lfmm(paste0(out.path,".geno"))
 
 ```
@@ -71,7 +51,7 @@ Look at the files in the data directory
 Now do the population clustering. The function estimates entropy criterion that evaluates the quality of fit of the statistical model to the data using a cross-validation technique and can help you choose the number of population clusters there are in the data. We are performing ten replicates``` rep=10```. This fuction can take some time but in comparison to running STRUCTURE it is much faster. We explore a range of values of Ks that span the true number of ancestral populations. You will need to choose a range of Ks based on your answer to Q1. E.g. if the K =3, then you could choose K=1:6.
 
 ```
-obj.snmf <- snmf(paste0(out.path,".lfmm"), K=1:6, rep=10, entropy=T, ploidy =2, project ="new", iterations=10000)
+obj.snmf <- snmf(paste0(input.path,".lfmm"), K=1:6, rep=10, entropy=T, ploidy =2, project ="new", iterations=10000)
 plot(obj.snmf, col = "blue4", cex = 1.4, pch = 19)
 summary(obj.snmf)
 ```
