@@ -59,10 +59,19 @@ Q1. How many populations do you think there are in your data?
 
 # Looking at population structure 
 
-Next we will investigate the population structure more throughly. The ```snmf``` function estimates ancestry coefficients similar to the commonly used programs (STRUCTURE  and ADMIXTURE). The function estimates entropy criterion that evaluates the quality of fit of the statistical model to the data using a cross-validation technique and can help you choose the number of population clusters there are in the data. We are performing ten replicates``` rep=10```. This fuction can take some time but in comparison to running STRUCTURE it is much faster. We explore a range of values of Ks that span the true number of ancestral populations. You will need to choose a range of Ks based on your answer to Q1. E.g. if the K =3, then you could choose K=1:6.
+Next we will investigate the population structure more throughly. The ```snmf``` function estimates ancestry coefficients similar to the commonly used programs (STRUCTURE  and ADMIXTURE). First we convert the data again.
 
 ```
-obj.snmf <- snmf("file.lfmm", K=1:6, rep=10, entropy=T, ploidy =2, project ="new", iterations=10000)
+vcf2geno(paste0(input.path,".vcf"), output.file =paste0(out.path,".geno"), force = TRUE)
+geno2lfmm(paste0(out.path,".geno"))
+
+```
+Look at the files in the data directory
+
+Now do the population clustering. The function estimates entropy criterion that evaluates the quality of fit of the statistical model to the data using a cross-validation technique and can help you choose the number of population clusters there are in the data. We are performing ten replicates``` rep=10```. This fuction can take some time but in comparison to running STRUCTURE it is much faster. We explore a range of values of Ks that span the true number of ancestral populations. You will need to choose a range of Ks based on your answer to Q1. E.g. if the K =3, then you could choose K=1:6.
+
+```
+obj.snmf <- snmf(paste0(out.path,".lfmm"), K=1:6, rep=10, entropy=T, ploidy =2, project ="new", iterations=10000)
 plot(obj.snmf, col = "blue4", cex = 1.4, pch = 19)
 summary(obj.snmf)
 ```
