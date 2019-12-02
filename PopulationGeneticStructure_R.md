@@ -49,12 +49,12 @@ Looking at the number of principle components that explain variation in the geno
 Here we perform a pca and then we use the Tracy-Widom test for each eigenvalue to investigate the number of genetic clusters in the data. We display the p-values for the Tracy-Widom test for 1-10 eigenvalues. The 'knee' in the plot indicates the number of significant components (K) in the data. The number of genetic clusters is K+1.
 
 ```
-pca1R <- pca(out.path, scale =TRUE)
+pca1R <- pca(paste0(out.path,".geno"), scale =TRUE)
 tw <- tracy.widom(pca1R)
 tw$pvalues[1:10]
 plot(tw$percentage, pch=19, typ="b") 
-
 ```
+
 Q1. How many populations do you think there are in your data?
 
 # Looking at population structure 
