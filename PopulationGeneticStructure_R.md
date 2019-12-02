@@ -7,8 +7,8 @@ This package can read in multiple file formats, including vcf, plink ped, STRUCT
 library(LEA)
 library(RColorBrewer)
 
-dir.create("LEA_analyses")
-setwd("LEA_analyses")
+dir.create("PopGen_analyses")
+setwd("PopGen_analyses")
 ```
 You will need to change the name of your file in the code below.
 ```
