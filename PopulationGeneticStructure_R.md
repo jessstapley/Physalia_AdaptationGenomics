@@ -82,3 +82,8 @@ barplot(t(as.matrix(qmatrix)), col=rainbow(bestK), xlab="Individual #", ylab="An
 NOTE: The snmf runs are automatically saved into an snmf project directory - have a look in your working directory. The name of the snmf project file is the same name as the name of the input file with a .snmfProject extension ("genotypes.snmfProject").
 An snmf project can be load in a different session.
 project = load.snmfProject("genotypes.snmfProject")
+
+# Extra Exercise for the maRsters
+
+We can add metadata to the data frame we created. Load the relevant txt file that came with the data. If this file does not work - can you figure out why and can you figure out how to read this into R. Try solving it with R or BASH, not excel. Once you have solved this problem - we will them merge the metadata file with our data frame containing the PCs. To merge we need two data frames with a matching column - some or all of the values in the matching column must be identical in both data frames and the column must have the same header - in this case we are matching individual sample ID between the PC data frame and the metadata file. You can check the names of the dataframes using the names()function. You may need to change the column name in the metadata dataframe. Then use merge as follows
+
