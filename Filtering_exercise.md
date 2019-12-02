@@ -80,7 +80,7 @@ Below are two ways to look at the loci statistics in R. The first uses the files
 ```
 R --vanilla
 lmiss1 <- read.table("file1_f1.lmiss", header=TRUE)
-l1 <- read.table("file1_f1.loci")
+l1 <- read.table("file1_f1.newloci")
 dp1 <- read.table("file1_f1.ldepth.mean", header=TRUE)
 den1 <- read.table("file1_f1.snpden", header=TRUE)
 ```
