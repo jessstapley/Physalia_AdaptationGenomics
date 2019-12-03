@@ -48,19 +48,10 @@ plot(pca1R, lwd=5, col="blue", cex = .7, xlab=("Factors"), ylab="Eigenvalues")
 plot(pca1R$projections)
 # PC3-PC4 plot.
 plot(pca1R$projections[,3:4])
-
-# Plot standard deviations.
-plot(pca1R$sdev)
 ```
 Looking at the number of principle components that explain variation in the genomic data we can get an idea about the likely number of ancestral populations. This  can help us choose a range of K for the next anaysis step.
+The number of ”significant” components can be evaluated looking at the eigenvalues plot.
 
-The number of ”significant” components can be evaluated using graphical methods based on the screeplot. The knee in the screeplot indicates that number of genetic clusters). 
-
-```
-screeplot(pca1R)
-plot(pca1R)# plots the eigenvalues
-
-```
 Next we use calculate Tracy-Widom test for each eigenvalue to investigate the number of genetic clusters in the data. We display the p-values for the Tracy-Widom test for 1-10 eigenvalues. The 'knee' in the plot indicates the number of significant components (K) in the data. The number of genetic clusters is K+1.
 
 ```
