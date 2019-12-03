@@ -4,7 +4,7 @@ This exercise we invesitgte population genetic strcuture using two approaches - 
 First we is creat a new directory for the R project - call it 'PopGen'. In that directory create one subdirectory  called data. Copy the data file to that data directory.
 
 Data files
-Brown: PopGen_Inversion
+Brown: 11109
 
 Green: Chicken
 
