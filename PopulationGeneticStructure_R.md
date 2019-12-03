@@ -29,7 +29,7 @@ Read in your libraries.
 ```
 library(LEA)
 library(RColorBrewer)
-
+library(vfR)
 ```
 You will need to change the name of your input.path and out.path in the code below to the file that is you data directory (HINT look at the 'files'). First we convert the vcf to geno format for this analysis
 ```
