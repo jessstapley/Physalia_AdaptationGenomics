@@ -4,7 +4,7 @@ In this exercise we invesitgte population genetic strcuture using two approaches
 First we is create a new directory for the R project - call it 'PopGen'. In that directory create one subdirectory called data. Copy the data file to that data directory.
 
 Data files
-Brown: 11109
+Brown: SimInversion
 
 Green: Chicken
 
@@ -39,10 +39,28 @@ vcf2geno(paste0(input.path,".vcf"),paste0(input.path,".geno"))
 Then we performa PCA and plot the data
 ```
 pca1R <- pca(paste0(input.path,".geno"), scale =TRUE)
+par(mfrow=c(2,2))
 
+# Plot eigenvalues.
+plot(pca1R, lwd=5, col="blue", cex = .7, xlab=("Factors"), ylab="Eigenvalues")
+
+# PC1-PC2 plot.
+plot(pca1R$projections)
+# PC3-PC4 plot.
+plot(pca1R$projections[,3:4])
+
+# Plot standard deviations.
+plot(pca1R$sdev)
 ```
 Looking at the number of principle components that explain variation in the genomic data we can get an idea about the likely number of ancestral populations. This  can help us choose a range of K for the next anaysis step.
 
+The number of ”significant” components can be evaluated using graphical methods based on the screeplot. The knee in the screeplot indicates that number of genetic clusters). 
+
+```
+screeplot(pca1R)
+plot(pca1R)# plots the eigenvalues
+
+```
 Next we use calculate Tracy-Widom test for each eigenvalue to investigate the number of genetic clusters in the data. We display the p-values for the Tracy-Widom test for 1-10 eigenvalues. The 'knee' in the plot indicates the number of significant components (K) in the data. The number of genetic clusters is K+1.
 
 ```
@@ -64,8 +82,14 @@ Look at the files in the data directory
 
 Now do the population clustering. The function estimates entropy criterion that evaluates the quality of fit of the statistical model to the data using a cross-validation technique and can help you choose the number of population clusters there are in the data. We are performing ten replicates``` rep=10```. This fuction can take some time but in comparison to running STRUCTURE it is much faster. We explore a range of values of Ks that span the true number of ancestral populations. You will need to choose a range of Ks based on your answer to Q1. E.g. if the K =3, then you could choose K=1:6.
 
+This function takes to long to run so we will load premade data. You need to look in your files and find out waht the .snmf project is called and replace FILENAME with the name of your file.
+
 ```
-obj.snmf <- snmf(paste0(input.path,".lfmm"), K=1:6, rep=10, entropy=T, ploidy =2, project ="new", iterations=10000)
+# this is how you woud run the code
+# obj.snmf <- snmf(paste0(input.path,".lfmm"), K=1:6, rep=10, entropy=T, ploidy =2, project ="new", iterations=10000)
+# this is how re reload a prepared object
+obj.snmf = load.lfmmProject("FILENAME.lfmmProject")
+
 plot(obj.snmf, col = "blue4", cex = 1.4, pch = 19)
 summary(obj.snmf)
 ```
@@ -82,11 +106,6 @@ best.run <- which.min(ce)
 qmatrix = Q(obj.snmf, K =bestK, run=best.run)
 barplot(t(as.matrix(qmatrix)), col=rainbow(bestK), xlab="Individual #", ylab="Ancestry", border=NA)
 ```
-NOTE: The snmf runs are automatically saved into an snmf project directory - have a look in your working directory. The name of the snmf project file is the same name as the name of the input file with a .snmfProject extension ("genotypes.snmfProject").
-An snmf project can be load in a different session.
-project = load.snmfProject("genotypes.snmfProject")
 
-# Extra Exercise for the maRsters
-
-We can add metadata to the data frame we created. Load the relevant txt file that came with the data. If this file does not work - can you figure out why and can you figure out how to read this into R. Try solving it with R or BASH, not excel. Once you have solved this problem - we will them merge the metadata file with our data frame containing the PCs. To merge we need two data frames with a matching column - some or all of the values in the matching column must be identical in both data frames and the column must have the same header - in this case we are matching individual sample ID between the PC data frame and the metadata file. You can check the names of the dataframes using the names()function. You may need to change the column name in the metadata dataframe. Then use merge as follows
+How could we make these plots better, what information are we missing?
 
