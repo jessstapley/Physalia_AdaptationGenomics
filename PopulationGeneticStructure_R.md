@@ -1,7 +1,7 @@
 # Investigating Population Genetic Struture in R
-This exercise we invesitgte population genetic strcuture using two approaches - a distance based method (PCA) and a model based method (entropy criterion).
+In this exercise we invesitgte population genetic strcuture using two approaches - a distance based method (PCA) and a model based method (entropy criterion).
 
-First we is creat a new directory for the R project - call it 'PopGen'. In that directory create one subdirectory  called data. Copy the data file to that data directory.
+First we is create a new directory for the R project - call it 'PopGen'. In that directory create one subdirectory called data. Copy the data file to that data directory.
 
 Data files
 Brown: 11109
@@ -12,16 +12,15 @@ Red: Cichlid
 
 Blue: Salmon
 
-Open R studio, create a new project using this existing directory that you just created (PopGen). Here you have two options. if you are confortable in R make an R markdon file. If you are a beginner in R then just make a new script.
+Open R studio, create a new project using this existing directory that you just created (PopGen). Once R project is et set you have two options. if you are confortable in R make an R markdown file. If you are a beginner in R then just make a new script.
 
-For R script - you can copy and paste the chunks of code into the R script. In the Rscript you can comments and notes use the '#' before a line of comments. This will help you see what is code and what are comments.
+For R script - you can copy and paste the chunks of code from this github into the R script. In the Rscript you can add comments and notes - use the '#' before a line of comments. This will help you see what is code and what are comments.
 
-For R Markdown
-In R open a new R Markdown file. Have a look at the default file format. You can add chuncks of code to the sections between "```"  "```". You can replace the code in all sections EXCEPT this bit - DO NOT EDIT this bit.
+For R Markdown - in R open a new R Markdown file. Have a look at the default file format. You can add chuncks of code to the sections between "```"  "```". You can replace the code in all sections EXCEPT this bit - DO NOT OVERWRITE this bit.
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
-Get familiar with this sytax and organisation of the markdown documents. Save this document (PopGenStructure) to the directory PopGen and now you can edit this document by copying the information from this github tutporial. Now follow this tutorial on github - copy the code from here into the markdown document in a similar fashion. To run a chunk of code in the markdwon document press the small green arrow.
+Get familiar with this sytax and organisation of the markdown documents. Save this document (PopGenStructure) to the directory PopGen and now you can edit this document by copying the information from this github tutporial - copy the code from here into the markdown document in chunks. To run a chunk of code in the markdwon document press the small green arrow.
 
 # PCA analysis from vcf file
 Now the R project is set up lets begin.
@@ -35,22 +34,22 @@ library(RColorBrewer)
 You will need to change the name of your input.path and out.path in the code below to the file that is you data directory (HINT look at the 'files'). First we convert the vcf to geno format for this analysis
 ```
 input.path <-  "data/FILENAME
-
 vcf2geno(paste0(input.path,".vcf"),paste0(input.path,".geno"))
-pca1R <- pca(paste0(input.path,".geno"), scale =TRUE)
 ```
+Then we performa PCA and plot the data
+```
+pca1R <- pca(paste0(input.path,".geno"), scale =TRUE)
+
+```
+Looking at the number of principle components that explain variation in the genomic data we can get an idea about the likely number of ancestral populations. This  can help us choose a range of K for the next anaysis step.
+
+Next we use calculate Tracy-Widom test for each eigenvalue to investigate the number of genetic clusters in the data. We display the p-values for the Tracy-Widom test for 1-10 eigenvalues. The 'knee' in the plot indicates the number of significant components (K) in the data. The number of genetic clusters is K+1.
 
 ```
 tw <- tracy.widom(pca1R)
 tw$pvalues[1:10]
 plot(tw$percentage, pch=19, typ="b") 
 ```
-
-Looking at the number of principle components that explain variation in the genomic data we can get an idea about the likely number of ancestral populations. This  can help us choose a range of K for the next anaysis step.
-
-Here we perform a pca and then we use the Tracy-Widom test for each eigenvalue to investigate the number of genetic clusters in the data. We display the p-values for the Tracy-Widom test for 1-10 eigenvalues. The 'knee' in the plot indicates the number of significant components (K) in the data. The number of genetic clusters is K+1.
-
-
 Q1. How many populations do you think there are in your data?
 
 # Looking at population structure 
