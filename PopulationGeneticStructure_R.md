@@ -1,7 +1,13 @@
 # Investigating Population Genetic Struture in R
 This exercise we invesitgte population genetic strcuture using two approaches - a distance based method (PCA) and a model based method (entropy criterion).
 
-First, create a new directory called PopGen. In that directory create one subdirectory (data). Copy the data file to the data directory.
+First we is creat a new directory for the R project - call it 'PopGen'. In that directory create one subdirectory  called data. Copy the data file to that data directory.
+
+Data files
+Brown: PopGen_Inversion
+Green: Chicken
+Red:
+Blue: Salmon
 
 Open R studio, create a new project using this existing directory that you just created (PopGen). In R open a new R Markdown file. Have a look at the default file format. You can add chuncks of code to the sections between "```"  "```". You can replace the code in all sections EXCEPT this bit - DO NOT EDIT this bit.
 ```{r setup, include=FALSE}
