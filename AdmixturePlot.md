@@ -34,7 +34,7 @@ The admixture results are in the same format as the STRUCTURE and snmf outputs. 
 We will use R to plot this data. Open R and load at least 3 x .Q files, for the best value of K (lowest CV) and the file for K-1 and K+1. 
 The following was written assuming K=8 is the K with lowest CV, the output files are in a folder in your projet directory called 'data' and your files are called e.g. file1.7.Q. You will need to change the filenames but also think about how you need to change the number of colours on the plot (e.g. rainbow(8))
 
-
+```
 tbl1 = read.table("data/file1.7.Q")
 tbl2 = read.table("data/file2.8.Q")
 tbl3 = read.table("data/file3.9.Q")
