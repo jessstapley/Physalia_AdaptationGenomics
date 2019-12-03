@@ -18,11 +18,17 @@ grep -h CV log*.out
 
 E.g. 
 grep -h CV log*.out
+
 CV error (K=5): 0.59575
+
 CV error (K=6): 0.59378
+
 CV error (K=7): 0.59293
+
 CV error (K=8): 0.59239 ***
+
 CV error (K=9): 0.59353
+
 CV error (K=10): 0.59365
 
 The lowest value is the most likely K, in this e.g. K=8
