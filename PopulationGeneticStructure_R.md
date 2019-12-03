@@ -5,17 +5,23 @@ First we is creat a new directory for the R project - call it 'PopGen'. In that 
 
 Data files
 Brown: PopGen_Inversion
+
 Green: Chicken
-Red:
+
+Red: Cichlid
+
 Blue: Salmon
 
-Open R studio, create a new project using this existing directory that you just created (PopGen). In R open a new R Markdown file. Have a look at the default file format. You can add chuncks of code to the sections between "```"  "```". You can replace the code in all sections EXCEPT this bit - DO NOT EDIT this bit.
+Open R studio, create a new project using this existing directory that you just created (PopGen). Here you have two options. if you are confortable in R make an R markdon file. If you are a beginner in R then just make a new script.
+
+For R script - you can copy and paste the chunks of code into the R script. In the Rscript you can comments and notes use the '#' before a line of comments. This will help you see what is code and what are comments.
+
+For R Markdown
+In R open a new R Markdown file. Have a look at the default file format. You can add chuncks of code to the sections between "```"  "```". You can replace the code in all sections EXCEPT this bit - DO NOT EDIT this bit.
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
-Get familiar with this sytax and organisation of the markdown documents. Save this document (PopGenStructure) to the directory PopGen and now you can edit this document by copying the information from this github tutporial.
-
-Now follow this tutorial on github - copy the code from here into the markdown document in a similar fashion. To run a chunk of code in the markdwon document press the small green arrow.
+Get familiar with this sytax and organisation of the markdown documents. Save this document (PopGenStructure) to the directory PopGen and now you can edit this document by copying the information from this github tutporial. Now follow this tutorial on github - copy the code from here into the markdown document in a similar fashion. To run a chunk of code in the markdwon document press the small green arrow.
 
 # PCA analysis from vcf file
 Now the R project is set up lets begin.
@@ -26,12 +32,15 @@ library(LEA)
 library(RColorBrewer)
 
 ```
-You will need to change the name of your input.path  and out.path in the code below. First we convert the vcf to geno format for this analysis
+You will need to change the name of your input.path and out.path in the code below to the file that is you data directory (HINT look at the 'files'). First we convert the vcf to geno format for this analysis
 ```
 input.path <-  "data/FILENAME
 
 vcf2geno(paste0(input.path,".vcf"),paste0(input.path,".geno"))
 pca1R <- pca(paste0(input.path,".geno"), scale =TRUE)
+```
+
+```
 tw <- tracy.widom(pca1R)
 tw$pvalues[1:10]
 plot(tw$percentage, pch=19, typ="b") 
