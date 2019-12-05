@@ -56,7 +56,7 @@ NOTE: The snmf runs are automatically saved into an snmf project directory - hav
 An snmf project can be load in a different session using 
 ```project = load.snmfProject("genotypes.snmfProject")```
 
-# Genome-wide Association Scan
+# Genome-environment association
 This LEA package can do a genome-wide association scan using Latent Factor Mixed Models (LFMM) - to find associations with the environment (ecology) or phenotype. With this approach we can correct for confounding effects of population structure due to shared demographic history or background genetic variation and find association between allele frequencies and an ecological or phenotype predictors. With large data sets this step can be computationally demanding and you might need to do your analysis on a server.
 
 This takes some time - so for this exercise we start this running and come back to it after the lecture
