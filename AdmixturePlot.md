@@ -1,6 +1,6 @@
 
 # Creating Plot in R of Admixture output 
-Admixture was run using .bed files. These are created using plink. The admixture commaon line was
+Admixture was run using .bed files. These are created using plink. The admixture command line was
 
 ```
 for K in 1 2 3 4 5 6 7 8 9 10; \
@@ -9,9 +9,9 @@ done
 ```
 
 We run multiple replicates of admixture across multiple values of K and use cross validation (CV) to  detrmine the most likely number of genetic clusters (K). 
-The K that that the lowest cross-validation error compared to others is the most likely number of ancestral clusters
+The K with the lowest cross-validation error compared to others is the most likely number of ancestral clusters
 
-We can look at the CV values in the log file by extracting the relevant information from the lof files using grep. In the directory that contains the output from admixture type
+We can look at the CV values in the log file by extracting the relevant information from the log files using grep. In the directory that contains the output from admixture type
 ```
 grep -h CV log*.out
 ```
