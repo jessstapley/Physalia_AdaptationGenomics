@@ -1,16 +1,16 @@
 # Discriminant analysis of principal components (DAPC)
 
 We will perform DAPC using the R pacakge ```Adegenet```. The vignette can also be opened within R by executing ```adegenetTutorial("dapc")```.
-Copy the relevant file to your R project directory. This appraoch is interactive - you will be promoted to enter values in the R console during the analysis. The choise of the values is dependent on the plots that the functions produce.
+Copy the relevant file to your R project directory. This appraoch is interactive - you will be promted to enter values in the R console during the analysis. The choise of the values is dependent on the plots that the functions produce.
 
-Each group will be assigned a data set. Open R and set up a R PROJECT for this exercise and load the relevant libraries.
+Open R and set up a R PROJECT for this exercise and load the relevant libraries.
 
 ```
 library(vcfR)
 library(adegenet)
 
 ```
-Read in the vcf file, rememeber you will need to change the name of the file. 
+Read in the vcf file, remember you will need to replace "file.vcf" with the name of your vcf file. 
 ```
 vcf_file <- "file.vcf"
 gld <- vcfR2genind(vcf_file)
