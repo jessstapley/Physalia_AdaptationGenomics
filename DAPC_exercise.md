@@ -19,9 +19,9 @@ The first step is to find clusters in the data, we set a maximum number of clust
 ```
 grp.ld <-  find.clusters(gld, max.n.clust=30)
 ```
-In this step the function performs a PCA and creates a plot of the cumulative variance explained by increaseing values of PC retained. At this point you are asked to choose the number of PC to retain. Kepp all the PCs at this stage, so enter the maximum value on the x-axis.
+In this step the function performs a PCA and creates a plot of the cumulative variance explained by increaseing values of PC retained. At this point you are asked to choose the number of PC to retain. Keep all the PCs at this stage, so enter the maximum value on the x-axis.
 
-Then the function plots a graph of the Bayesian Information Criteron (BIC) for different values of K. The elbow in the curve and the lowest BIC is the most likely estimate of the number of clusteres in the dataset. You are again promted to enter a value, this time a vlue of the number of 
+Then the function plots a graph of the Bayesian Information Criteron (BIC) for different values of K. The elbow in the curve and the lowest BIC is the most likely estimate of the number of clusters in the dataset. You are again promted to enter a value, this time a value of the likely number of clusters is needed.
 ```
 dapc.ld <- dapc(gld, grp.ld$grp, n.da = NULL)
 scatter(dapc.ld)
