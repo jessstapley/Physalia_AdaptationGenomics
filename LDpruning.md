@@ -33,7 +33,7 @@ plink --file filename_pruned --chr-set 29 no-xy --mind 0.05 --hwe 0.001 --keep-a
 # Pruning with bcftools
 When converting vcf to plink you loose a lot of FORMAT and INFO information from the vcf file (i.e. depth, genotype quality) also the order of the alleles and ancestral allele information can be lost/altered. If these things are required in downstream analysis  - dont panic - we can use bcftools to do LD pruning. Bcftools is part of samtools, which can be download from http://www.htslib.org/download/. The LD pruning uses the prune plugin https://samtools.github.io/bcftools/howtos/plugins.html. One line and yourare done.
 ```
-bcftools +prune -l 0.2  -w 5000 file.vcf -Ov -o file_pruned.vcf
+bcftools +prune -m 0.2  -w 5000 file.vcf -Ov -o file_pruned.vcf
 ```
 
 # Pruning with R
